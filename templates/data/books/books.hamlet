@@ -1,0 +1,18 @@
+
+^{widgetTopbar Nothing (msgr MsgBooks) Nothing idOverlay Nothing}
+
+<main.responsive>
+  $forall Entity bid (Book series title) <- books
+    <a.row.padding.surface-container.wave href=@{DataR $ BookR bid}>
+      <button.circle>
+      <div.max>
+        <h6.small>#{title}
+        <div>#{series}
+      <i>arrow_forward_ios
+
+    <hr>
+
+  <a.button.circle.extra.fixed.right.bottom.margin.medium-elevate href=@{DataR BookNewR}>
+    <i>add
+
+  ^{widgetSnackbar msgs}

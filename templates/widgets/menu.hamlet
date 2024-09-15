@@ -1,0 +1,43 @@
+
+<div.overlay ##{idOverlay}>
+
+<dialog.left.no-padding.primary ##{idDialogMainMenu}>
+
+  <header.fixed.max>
+    <nav.margin>
+      <i.large>menu_book
+      <div.max>
+        <h6>_{MsgAppName}
+      <button.transparent.circle.large ##{idButtonMainMenuClose}>
+        <i>close
+        
+  <nav.drawer>
+
+    <a href=@{DataR BooksR}>
+      <i>book
+      <span>_{MsgBooks}
+
+    <a href=@{DataR PartsR}>
+      <i>sticky_note_2
+      <span>_{MsgBookElements}
+
+    <a href=#>
+      <i>bookmarks
+      <span>_{MsgTags}
+
+
+    <a href=@{DataR UsersR}>
+      <i>group
+      <span>_{MsgUsers}
+      
+    <hr>
+
+    <a href=@{DocsR}>
+      <i>quick_reference
+      <span>_{MsgDocumentation}
+
+    <a href="https://github.com/ciukstar/booklib">
+      <i>
+        <img src=@{StaticR img_github_mark_white_svg}>
+      <span>_{MsgSourceCode}
+    

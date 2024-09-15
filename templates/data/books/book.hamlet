@@ -1,0 +1,29 @@
+
+<div.overlay ##{idOverlay} data-ui=##{idOverlay} onclick="document.getElementById('#{idDialogDelete}').close()">
+
+^{widgetTopbar (Just $ DataR BooksR) (msgr MsgBook) (Just $ DataR $ BookEditR bid) idOverlay (Just idDialogDelete)}
+
+<main.responsive>
+
+  $maybe Entity _ (Book series title) <- book
+    <dl.margin>
+      <dt>
+        <label.large>_{MsgSeries}
+      <dd.margin>
+        #{series}
+
+      <dt>
+        <label.large>_{MsgTitle}
+      <dd.margin>
+        #{title}
+
+  ^{widgetSnackbar msgs}
+
+<dialog ##{idDialogDelete}>
+  <h5>_{MsgConfirmPlease}
+  <div>_{MsgDeleteAreYouSure}
+  <nav.right-align.no-space>
+    <button.transparent.link data-ui=##{idOverlay}
+      onclick="document.getElementById('#{idDialogDelete}').close()">
+      _{MsgCancel}
+    <button.primary>_{MsgDele}

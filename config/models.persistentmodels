@@ -1,0 +1,57 @@
+-- By default this file is used by `persistFileWith` in Model.hs (which is imported by Foundation.hs)
+-- Syntax for this file here: https://github.com/yesodweb/persistent/blob/master/docs/Persistent-entity-syntax.md
+
+Bookmark
+    content BookContentId OnDeleteCascade
+    owner UserId OnDeleteCascade
+    tag TagId OnDeleteCascade
+    timeCreated UTCTime
+    start Int
+    end Int
+    background_color Text Maybe
+
+Tag
+    author UserId OnDeleteCascade
+    timeCreated UTCTime
+    name Text
+    descr Text Maybe
+    UniqueTag name
+
+BookContent sql=content
+    structure StructureId OnDeleteCascade
+    text Text
+
+
+Structure
+    book BookId OnDeleteCascade
+    part PartId OnDeleteCascade
+    parent StructureId Maybe
+    name Text    
+
+
+Part
+    name Text
+    descr Textarea Maybe
+    UniquePart name
+
+Book
+    series Text
+    title Text
+    UniqueBook series
+
+Role
+    name Text
+    UniqueRole name
+
+User
+    email Text
+    password Text Maybe
+    role RoleId OnDeleteCascade
+    UniqueUser email
+    deriving Typeable
+    
+Email
+    email Text
+    userId UserId Maybe
+    verkey Text Maybe
+    UniqueEmail email

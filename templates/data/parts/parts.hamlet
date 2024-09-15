@@ -1,0 +1,16 @@
+
+^{widgetTopbar Nothing (msgr MsgBookParts) Nothing idOverlay Nothing}
+
+<main.responsive>
+  $forall Entity pid (Part name _) <- parts
+    <a.row.padding.surface-container.wave href=@{DataR $ PartR pid}>
+      <div.max>
+        <h6.small>#{name}
+      <i>arrow_forward_ios
+
+    <hr>
+
+  <a.button.circle.extra.fixed.right.bottom.margin.medium-elevate href=@{DataR PartNewR}>
+    <i>add
+
+  ^{widgetSnackbar msgs}

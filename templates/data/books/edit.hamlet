@@ -1,0 +1,14 @@
+
+^{widgetTopbar (Just $ DataR $ BookR bid) (msgr MsgBook) Nothing idOverlay Nothing}
+
+<main.responsive>
+
+  <form.margin method=post action=@{DataR $ BookR bid} enctype=#{et} novalidate>
+    ^{fw}
+    <nav.right-align.no-space>
+      <a.button.transparent href=@{DataR $ BookR bid}>
+        _{MsgCancel}
+      <button.primary type=submit>
+        _{MsgSave}
+
+  ^{widgetSnackbar msgs}

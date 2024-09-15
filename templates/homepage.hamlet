@@ -1,0 +1,6 @@
+
+^{widgetTopbar Nothing (msgr MsgAppName) Nothing idOverlay Nothing}
+
+<main>
+
+  ^{widgetSnackbar msgs}

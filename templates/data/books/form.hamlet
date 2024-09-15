@@ -1,0 +1,11 @@
+
+#{extra} 
+
+$forall v <- [seriesV, titleV]
+  <div.field.label.border.round :isJust (fvErrors v):.invalid>
+
+    ^{fvInput v}
+    <label :isJust book:.active>#{fvLabel v}
+
+    $maybe err <- fvErrors v
+      <span.error>#{err}
