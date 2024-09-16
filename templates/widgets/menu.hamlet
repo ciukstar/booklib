@@ -25,6 +25,10 @@
       <i>bookmarks
       <span>_{MsgTags}
 
+    <a href=@{DataR TopicsR}>
+      <i>topic
+      <span>_{MsgTopics}
+
 
     <a href=@{DataR UsersR}>
       <i>group
@@ -36,7 +40,7 @@
       <i>quick_reference
       <span>_{MsgDocumentation}
 
-    <a href="https://github.com/ciukstar/booklib">
+    <a href="https://github.com/ciukstar/booklib" target=_blank>
       <i>
         <img src=@{StaticR img_github_mark_white_svg}>
       <span>_{MsgSourceCode}

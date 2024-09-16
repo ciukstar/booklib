@@ -2,7 +2,7 @@
 -- Syntax for this file here: https://github.com/yesodweb/persistent/blob/master/docs/Persistent-entity-syntax.md
 
 Bookmark
-    content BookContentId OnDeleteCascade
+    content ContentsId OnDeleteCascade
     owner UserId OnDeleteCascade
     tag TagId OnDeleteCascade
     timeCreated UTCTime
@@ -17,7 +17,12 @@ Tag
     descr Text Maybe
     UniqueTag name
 
-BookContent sql=content
+Topic
+    name Text
+    descr Textarea Maybe
+    UniqueTopic name
+
+Contents sql=content
     structure StructureId OnDeleteCascade
     text Text
 

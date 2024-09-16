@@ -22,10 +22,10 @@ import Database.Persist
 
 import Foundation
     ( Handler, Form, widgetTopbar, widgetSnackbar
-    , Route (HomeR, DataR)
+    , Route (DataR)
     , DataR (PartsR, PartNewR, PartR, PartEditR)
     , AppMessage
-      ( MsgParts, MsgPart, MsgSeries, MsgTitle, MsgConfirmPlease
+      ( MsgPart, MsgTitle, MsgConfirmPlease
       , MsgDeleteAreYouSure, MsgCancel, MsgDele, MsgSave, MsgRecordAdded
       , MsgRecordEdited, MsgBookParts, MsgBookPart, MsgName, MsgDescription
       )
@@ -34,7 +34,7 @@ import Foundation
 import Model
     ( msgSuccess
     , PartId, Part(Part, partName, partDescr)
-    , EntityField (PartName, PartId)
+    , EntityField (PartId)
     )
 
 import Settings (widgetFile)

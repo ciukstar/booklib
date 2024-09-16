@@ -1,0 +1,30 @@
+
+<div.overlay ##{idOverlay} data-ui=##{idOverlay} onclick="document.getElementById('#{idDialogDelete}').close()">
+
+^{widgetTopbar (Just $ DataR TopicsR) (msgr MsgTopic) (Just $ DataR $ TopicEditR tid) idOverlay (Just idDialogDelete)}
+
+<main.responsive>
+
+  $maybe Entity _ (Topic name descr) <- topic
+    <dl.margin>
+      <dt>
+        <label.large>_{MsgName}
+      <dd.margin>
+        #{name}
+
+      <dt>
+        <label.large>_{MsgDescription}
+      <dd.margin>
+        $maybe descr <- descr
+          #{descr}
+
+  ^{widgetSnackbar msgs}
+
+<dialog ##{idDialogDelete}>
+  <h5>_{MsgConfirmPlease}
+  <div>_{MsgDeleteAreYouSure}
+  <nav.right-align.no-space>
+    <button.transparent.link data-ui=##{idOverlay}
+      onclick="document.getElementById('#{idDialogDelete}').close()">
+      _{MsgCancel}
+    <button.primary>_{MsgDele}

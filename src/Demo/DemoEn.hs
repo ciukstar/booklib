@@ -14,7 +14,7 @@ import Database.Persist.SqlBackend (SqlBackend)
 
 import Model
     ( Role(Role)
-    , User (User, userEmail, userPassword, userRole), Book (Book, bookTitle, bookSeries), Part (Part, partName, partDescr)
+    , User (User, userEmail, userPassword, userRole), Book (Book, bookTitle, bookSeries), Part (Part, partName, partDescr), Topic (Topic, topicName, topicDescr)
     )
     
 import System.Random (randomRIO)
@@ -130,6 +130,87 @@ fillDemoEn = do
                       , partDescr = Nothing
                       }
     pid14 <- insert part14
+
+
+    let topic1 = Topic { topicName = "Human nature"
+                       , topicDescr = Nothing
+                       }
+    tid1 <- insert topic1
+
+    let topic2 = Topic { topicName = "Free will"
+                       , topicDescr = Nothing
+                       }
+    tid2 <- insert topic2
+
+    let topic3 = Topic { topicName = "Self-awareness"
+                       , topicDescr = Nothing
+                       }
+    tid3 <- insert topic3
+
+    let topic4 = Topic { topicName = "Coming of age"
+                       , topicDescr = Nothing
+                       }
+    tid4 <- insert topic4
+
+    let topic5 = Topic { topicName = "Hope"
+                       , topicDescr = Nothing
+                       }
+    tid5 <- insert topic5
+
+    let topic6 = Topic { topicName = "Jealousy"
+                       , topicDescr = Nothing
+                       }
+    tid6 <- insert topic6
+
+    let topic7 = Topic { topicName = "Justice"
+                       , topicDescr = Nothing
+                       }
+    tid7 <- insert topic7
+
+    let topic8 = Topic { topicName = "Fear"
+                       , topicDescr = Nothing
+                       }
+    tid8 <- insert topic8
+
+    let topic9 = Topic { topicName = "Freedom"
+                       , topicDescr = Nothing
+                       }
+    tid9 <- insert topic9
+
+    let topic10 = Topic { topicName = "Friendship"
+                       , topicDescr = Nothing
+                       }
+    tid10 <- insert topic10
+
+    let topic11 = Topic { topicName = "Bravery"
+                        , topicDescr = Nothing
+                        }
+    tid11 <- insert topic11
+
+    let topic12 = Topic { topicName = "Happiness"
+                        , topicDescr = Nothing
+                        }
+    tid12 <- insert topic12
+
+    let topic13 = Topic { topicName = "Passion"
+                        , topicDescr = Nothing
+                        }
+    tid13 <- insert topic13
+
+    let topic14 = Topic { topicName = "Kindness"
+                        , topicDescr = Nothing
+                        }
+    tid14 <- insert topic14
+
+    let topic15 = Topic { topicName = "Trust"
+                        , topicDescr = Nothing
+                        }
+    tid15 <- insert topic15
+
+    let topic16 = Topic { topicName = "War"
+                        , topicDescr = Nothing
+                        }
+    tid16 <- insert topic16
     
 
     return ()

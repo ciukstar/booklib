@@ -1,3 +1,5 @@
+Topic: Topic
+Topics: Topics
 SourceCode: Source code
 GitHub: GitHub
 EntityRelationshipDiagram: Entity relationship diagram

@@ -52,6 +52,13 @@ import Handler.Common (getFaviconR, getRobotsR)
 import Handler.Home ( getHomeR )
 import Handler.Docs ( getDocsR )
 
+import Handler.Topics
+    ( getTopicsR, postTopicsR
+    , getTopicR, postTopicR
+    , getTopicNewR
+    , getTopicEditR
+    )
+
 import Handler.Parts
     ( getPartsR, postPartsR
     , getPartR, postPartR

@@ -1,3 +1,5 @@
+Topic: Тема
+Topics: Темы
 SourceCode: Исходный код
 GitHub: GitHub
 EntityRelationshipDiagram: Диаграмма взаимосвязи сущностей

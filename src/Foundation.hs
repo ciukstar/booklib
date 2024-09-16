@@ -197,6 +197,11 @@ instance Yesod App where
     isAuthorized (DataR (PartR _)) _ = return Authorized
     isAuthorized (DataR PartNewR) _ = return Authorized
     isAuthorized (DataR (PartEditR _)) _ = return Authorized
+
+    isAuthorized (DataR TopicsR) _ = return Authorized
+    isAuthorized (DataR (TopicR _)) _ = return Authorized
+    isAuthorized (DataR TopicNewR) _ = return Authorized
+    isAuthorized (DataR (TopicEditR _)) _ = return Authorized
     
     
     isAuthorized PwdResetR _ = return Authorized

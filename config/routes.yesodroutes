@@ -17,6 +17,11 @@
 
 /data DataR:
 
+    /topics/#TopicId/edit TopicEditR GET
+    /topics/new/form      TopicNewR  GET 
+    /topics/#TopicId      TopicR     GET POST
+    /topics               TopicsR    GET POST
+
     /parts/#PartId/edit PartEditR GET
     /parts/new/form     PartNewR  GET 
     /parts/#PartId      PartR     GET POST

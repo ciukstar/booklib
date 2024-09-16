@@ -3,11 +3,11 @@
 {-# LANGUAGE QuasiQuotes #-}
 {-# LANGUAGE OverloadedStrings #-}
 
-module Handler.Books
-  ( getBooksR, postBooksR
-  , getBookR, postBookR
-  , getBookNewR
-  , getBookEditR
+module Handler.Topics
+  ( getTopicsR, postTopicsR
+  , getTopicR, postTopicR
+  , getTopicNewR
+  , getTopicEditR
   ) where
 
 import Data.Maybe (isJust)
@@ -23,17 +23,18 @@ import Database.Persist
 import Foundation
     ( Handler, Form, widgetTopbar, widgetSnackbar
     , Route (DataR)
-    , DataR (BooksR, BookNewR, BookR, BookEditR)
+    , DataR (TopicsR, TopicNewR, TopicR, TopicEditR)
     , AppMessage
-      ( MsgBooks, MsgBook, MsgSeries, MsgTitle, MsgConfirmPlease
+      ( MsgTopics, MsgTopic, MsgTitle, MsgConfirmPlease
       , MsgDeleteAreYouSure, MsgCancel, MsgDele, MsgSave, MsgRecordAdded
-      , MsgRecordEdited
+      , MsgRecordEdited, MsgTopics, MsgTopic, MsgName, MsgDescription
       )
     )
     
 import Model
-    ( BookId, Book(Book, bookSeries, bookTitle)
-    , EntityField (BookTitle, BookId), msgSuccess
+    ( msgSuccess
+    , TopicId, Topic(Topic, topicName, topicDescr)
+    , EntityField (TopicName, TopicId)
     )
 
 import Settings (widgetFile)
@@ -41,7 +42,7 @@ import Settings (widgetFile)
 import Text.Hamlet (Html)
 import Text.Shakespeare.I18N (SomeMessage (SomeMessage))
 
-import Yesod (YesodPersist(runDB))
+import Yesod (YesodPersist(runDB), mopt, textareaField, setTitleI)
 import Yesod.Core (Yesod(defaultLayout), getMessageRender)
 import Yesod.Core.Handler (getMessages, newIdent, addMessageI, redirect)
 import Yesod.Form.Fields (textField)
@@ -53,120 +54,123 @@ import Yesod.Form.Types
     )
 
 
-postBookR :: BookId -> Handler Html
-postBookR bid = do
+postTopicR :: TopicId -> Handler Html
+postTopicR bid = do
 
-    book <- runDB $ selectOne $ do
-        x <- from $ table @Book
-        where_ $ x ^. BookId ==. val bid
+    topic <- runDB $ selectOne $ do
+        x <- from $ table @Topic
+        where_ $ x ^. TopicId ==. val bid
         return x
 
-    ((fr,fw),et) <- runFormPost $ formBook book
+    ((fr,fw),et) <- runFormPost $ formTopic topic
     case fr of
       FormSuccess r -> do
           runDB $ replace bid r
           addMessageI msgSuccess MsgRecordEdited
-          redirect $ DataR $ BookR bid
+          redirect $ DataR $ TopicR bid
       _otherwise -> do
           msgr <- getMessageRender
           msgs <- getMessages
           defaultLayout $ do
               idOverlay <- newIdent
-              $(widgetFile "data/books/edit")
+              $(widgetFile "data/topics/edit")
 
 
-getBookEditR :: BookId -> Handler Html
-getBookEditR bid = do
+getTopicEditR :: TopicId -> Handler Html
+getTopicEditR bid = do
 
-    book <- runDB $ selectOne $ do
-        x <- from $ table @Book
-        where_ $ x ^. BookId ==. val bid
+    topic <- runDB $ selectOne $ do
+        x <- from $ table @Topic
+        where_ $ x ^. TopicId ==. val bid
         return x
 
-    (fw,et) <- generateFormPost $ formBook book
+    (fw,et) <- generateFormPost $ formTopic topic
     
     msgr <- getMessageRender
     msgs <- getMessages
     defaultLayout $ do
         idOverlay <- newIdent
-        $(widgetFile "data/books/edit")
+        $(widgetFile "data/topics/edit")
 
         
-postBooksR :: Handler Html
-postBooksR = do
+postTopicsR :: Handler Html
+postTopicsR = do
 
-    ((fr,fw),et) <- runFormPost $ formBook Nothing
+    ((fr,fw),et) <- runFormPost $ formTopic Nothing
 
     case fr of
       FormSuccess r -> do
           runDB $ insert_ r
           addMessageI msgSuccess MsgRecordAdded
-          redirect $ DataR BooksR
+          redirect $ DataR TopicsR
       _otherwise -> do
           msgr <- getMessageRender
           msgs <- getMessages
           defaultLayout $ do
               idOverlay <- newIdent
-              $(widgetFile "data/books/new")        
+              $(widgetFile "data/topics/new")        
     
 
 
-getBookNewR :: Handler Html
-getBookNewR = do
+getTopicNewR :: Handler Html
+getTopicNewR = do
 
-    (fw,et) <- generateFormPost $ formBook Nothing
+    (fw,et) <- generateFormPost $ formTopic Nothing
     
     msgr <- getMessageRender
     msgs <- getMessages
     defaultLayout $ do
         idOverlay <- newIdent
-        $(widgetFile "data/books/new")
+        $(widgetFile "data/topics/new")
 
 
-formBook :: Maybe (Entity Book) -> Form Book
-formBook book extra = do
+formTopic :: Maybe (Entity Topic) -> Form Topic
+formTopic part extra = do
 
-    (seriesR,seriesV) <- mreq textField FieldSettings
-        { fsLabel = SomeMessage MsgSeries
+    (nameR,nameV) <- mreq textField FieldSettings
+        { fsLabel = SomeMessage MsgName
         , fsTooltip = Nothing, fsId = Nothing, fsName = Nothing, fsAttrs = []
-        } (bookSeries . entityVal <$> book)
+        } (topicName . entityVal <$> part)
         
-    (titleR,titleV) <- mreq textField FieldSettings
+    (descrR,descrV) <- mopt textareaField FieldSettings
         { fsLabel = SomeMessage MsgTitle
-        , fsTooltip = Nothing, fsId = Nothing, fsName = Nothing, fsAttrs = []
-        } (bookTitle . entityVal <$> book)
+        , fsTooltip = Nothing, fsId = Nothing, fsName = Nothing
+        , fsAttrs = [("class","active")]
+        } (topicDescr . entityVal <$> part)
     
-    let r = Book <$> seriesR <*> titleR
-    let w = $(widgetFile "data/books/form")
+    let r = Topic <$> nameR <*> descrR
+    let w = $(widgetFile "data/topics/form")
     return (r,w)
 
 
-getBookR :: BookId -> Handler Html
-getBookR bid = do
+getTopicR :: TopicId -> Handler Html
+getTopicR tid = do
 
-    book <- runDB $ selectOne $ do
-        x <- from $ table @Book
-        where_ $ x ^. BookId ==. val bid
+    topic <- runDB $ selectOne $ do
+        x <- from $ table @Topic
+        where_ $ x ^. TopicId ==. val tid
         return x
     
     msgr <- getMessageRender
     msgs <- getMessages
     defaultLayout $ do
+        setTitleI MsgTopic
         idOverlay <- newIdent
         idDialogDelete <- newIdent
-        $(widgetFile "data/books/book")
+        $(widgetFile "data/topics/topic")
 
 
-getBooksR :: Handler Html
-getBooksR = do
+getTopicsR :: Handler Html
+getTopicsR = do
 
-    books <- runDB $ select $ do
-        x <- from $ table @Book
-        orderBy [asc (x ^. BookTitle)]
+    topics <- runDB $ select $ do
+        x <- from $ table @Topic
+        orderBy [asc (x ^. TopicName)]
         return x
     
     msgr <- getMessageRender
     msgs <- getMessages
     defaultLayout $ do
+        setTitleI MsgTopics
         idOverlay <- newIdent
-        $(widgetFile "data/books/books")
+        $(widgetFile "data/topics/topics")

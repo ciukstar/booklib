@@ -12,7 +12,7 @@ module Handler.Docs
 import Foundation
     ( Handler
     , widgetSnackbar, widgetTopbar
-    , Route (DocsR, StaticR)
+    , Route (StaticR)
     , AppMessage
       ( MsgAppName, MsgDocumentation, MsgEntityRelationshipDiagram
       )
